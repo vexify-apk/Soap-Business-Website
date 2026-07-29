@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Beauty Factory Preuss - Handmade Soaps</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;700;800&family=Quicksand:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --cream: #FFF8EC;
+      --cream-2: #FFF1DA;
+      --ink: #2B2118;
+      --pink: #FF5FA2;
+      --pink-soft: #FFD8E9;
+      --yellow: #FFD23F;
+      --turquoise: #21BFB0;
+      --purple: #8E5BE0;
+      --purple-soft: #EAE0FB;
+      --card-shadow: 0 10px 0 rgba(43,33,24,0.08);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Quicksand', sans-serif;
+      background: var(--cream);
+      color: var(--ink);
+      font-weight: 600;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, .display {
+      font-family: 'Baloo 2', sans-serif;
+      font-weight: 800;
+      line-height: 1.05;
+    }
+
+    a { text-decoration: none; color: inherit; }
+    ul { list-style: none; }
+    img, svg { display: block; max-width: 100%; }
+    button { font-family: inherit; cursor: pointer; border: none; }
+
+    .wrap {
+      max-width: 1180px;
+      margin: 0 auto;
+      padding: 0 32px;
+    }
+
+    .blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(0px);
+      z-index: 0;
+    }
+
+    header {
+      position: sticky;
+      top: 0;
+      z-index: 50;
+      background: rgba(255,248,236,0.9);
+      backdrop-filter: blur(8px);
+      border-bottom: 3px solid var(--ink);
+    }
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 32px;
+      max-width: 1180px;
+      margin: 0 auto;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-family: 'Baloo 2', sans-serif;
+      font-weight: 800;
+      font-size: 1.35rem;
+      letter-spacing: -0.5px;
+    }
+    .logo-mark {
+      width: 34px;
+      height: 34px;
+      flex-shrink: 0;
+    }
+    .nav-links {
+      display: flex;
+      gap: 28px;
+      font-weight: 700;
+      font-size: 0.98rem;
+    }
+    .nav-links a {
+      position: relative;
+      padding: 4px 2px;
+    }
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      left: 0; bottom: -3px;
+      width: 0%;
+      height: 4px;
+      background: var(--pink);
+      border-radius: 4px;
+      transition: width 0.25s ease;
+    }
+    .nav-links a:hover::after { width: 100%; }
+
+    .nav-cta {
+      background: var(--ink);
+      color: var(--cream);
+      padding: 10px 22px;
+      border-radius: 100px;
+      font-weight: 700;
+      font-size: 0.95rem;
+      box-shadow: 0 4px 0 rgba(0,0,0,0.25);
+      transition: transform 0.15s ease;
+    }
+    .nav-cta:hover { transform: translateY(-2px); }
+
+    .menu-toggle { display: none; }
+
+    .hero {
+      position: relative;
+      padding: 90px 32px 60px;
+      overflow: hidden;
+    }
+    .hero-inner {
+      max-width: 1180px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 40px;
+      align-items: center;
+      position: relative;
+      z-index: 2;
+    }
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--yellow);
+      border: 3px solid var(--ink);
+      padding: 6px 16px;
+      border-radius: 100px;
+      font-weight: 700;
+      font-size: 0.85rem;
+      transform: rotate(-3deg);
+      margin-bottom: 22px;
+    }
+    .hero h1 {
+      font-size: clamp(2.6rem, 5.2vw, 4.2rem);
+      margin-bottom: 22px;
+    }
+    .hero h1 .accent {
+      color: var(--pink);
+      -webkit-text-stroke: 2px var(--ink);
+      text-stroke: 2px var(--ink);
+    }
+    .hero p {
+      font-size: 1.15rem;
+      max-width: 480px;
+      margin-bottom: 30px;
+      line-height: 1.5;
+    }
+    .hero-ctas {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .btn-primary {
+      background: var(--pink);
+      color: white;
+      padding: 16px 32px;
+      border-radius: 100px;
+      font-weight: 700;
+      font-size: 1.02rem;
+      border: 3px solid var(--ink);
+      box-shadow: 5px 5px 0 var(--ink);
+      transition: transform 0.15s ease, box-shadow 0.15s ease;
+    }
+    .btn-primary:hover {
+      transform: translate(-2px,-2px);
+      box-shadow: 7px 7px 0 var(--ink);
+    }
+    .btn-secondary {
+      background: transparent;
+      color: var(--ink);
+      padding: 16px 28px;
+      border-radius: 100px;
+      font-weight: 700;
+      font-size: 1.02rem;
+      border: 3px solid var(--ink);
+      transition: background 0.15s ease;
+    }
+    .btn-secondary:hover { background: var(--purple-soft); }
+
+    .hero-art {
+      position: relative;
+      height: 420px;
+    }
+    .hero-art svg { position: absolute; }
+
+    .swirl-badge {
+      border-radius: 50%;
+      display: block;
+    }
+
+    .section-head {
+      text-align: center;
+      max-width: 620px;
+      margin: 0 auto 50px;
+    }
+    .section-head .eyebrow { display: inline-flex; }
+    .section-head h2 {
+      font-size: clamp(2rem, 4vw, 2.8rem);
+      margin: 14px 0 12px;
+    }
+    .section-head p {
+      font-size: 1.05rem;
+      line-height: 1.5;
+    }
+
+    .shop {
+      padding: 90px 0 100px;
+      position: relative;
+    }
+    .shop-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 30px;
+    }
+    .card {
+      background: white;
+      border: 3px solid var(--ink);
+      border-radius: 26px;
+      padding: 26px;
+      box-shadow: var(--card-shadow);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+    }
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 16px 0 rgba(43,33,24,0.1);
+    }
+    .card .swirl-wrap {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      background: var(--cream-2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 20px;
+      border: 3px solid var(--ink);
+    }
+    .card h3 {
+      font-size: 1.25rem;
+      margin-bottom: 6px;
+    }
+    .card .scent-tag {
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--purple);
+      background: var(--purple-soft);
+      padding: 4px 12px;
+      border-radius: 100px;
+      margin-bottom: 14px;
+    }
+    .card .price {
+      font-family: 'Baloo 2', sans-serif;
+      font-size: 1.4rem;
+      font-weight: 800;
+      margin-bottom: 16px;
+    }
+    .card .price::after {
+      content: " - coming soon";
+      font-family: 'Quicksand', sans-serif;
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: #a8a196;
+      vertical-align: middle;
+    }
+    .card .btn-mini {
+      background: var(--ink);
+      color: var(--cream);
+      padding: 10px 24px;
+      border-radius: 100px;
+      font-weight: 700;
+      font-size: 0.9rem;
+      width: 100%;
+    }
+    .card .btn-mini:hover { background: var(--pink); }
+
+    .shop-note {
+      text-align: center;
+      margin-top: 44px;
+      font-size: 0.95rem;
+      color: #7a7264;
+      max-width: 480px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .about {
+      background: var(--purple-soft);
+      padding: 90px 0;
+      position: relative;
+      overflow: hidden;
+      border-top: 3px solid var(--ink);
+      border-bottom: 3px solid var(--ink);
+    }
+    .about-inner {
+      display: grid;
+      grid-template-columns: 0.85fr 1.15fr;
+      gap: 60px;
+      align-items: center;
+      position: relative;
+      z-index: 2;
+    }
+    .about-art {
+      position: relative;
+      height: 340px;
+    }
+    .about-art svg { position: absolute; }
+    .about h2 {
+      font-size: clamp(1.9rem, 3.6vw, 2.6rem);
+      margin-bottom: 20px;
+    }
+    .about p {
+      font-size: 1.08rem;
+      line-height: 1.65;
+      margin-bottom: 16px;
+      max-width: 520px;
+    }
+    .about-stats {
+      display: flex;
+      gap: 32px;
+      margin-top: 28px;
+      flex-wrap: wrap;
+    }
+    .stat {
+      background: white;
+      border: 3px solid var(--ink);
+      border-radius: 18px;
+      padding: 14px 20px;
+      text-align: center;
+      min-width: 110px;
+    }
+    .stat b {
+      display: block;
+      font-family: 'Baloo 2', sans-serif;
+      font-size: 1.5rem;
+      color: var(--pink);
+    }
+    .stat span {
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: #7a7264;
+    }
+
+    .contact {
+      padding: 100px 0 60px;
+      text-align: center;
+      position: relative;
+    }
+    .contact h2 {
+      font-size: clamp(2.1rem, 4.6vw, 3.2rem);
+      margin-bottom: 16px;
+    }
+    .contact p {
+      max-width: 480px;
+      margin: 0 auto 34px;
+      font-size: 1.08rem;
+      line-height: 1.5;
+    }
+    .contact-actions {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 46px;
+    }
+    .contact-actions .btn-primary {
+      min-width: 220px;
+    }
+    .email-display {
+      font-family: 'Quicksand', sans-serif;
+      font-weight: 600;
+      font-size: 1.05rem;
+      background: var(--cream-2);
+      padding: 8px 22px;
+      border-radius: 100px;
+      border: 2px solid var(--ink);
+      display: inline-block;
+      color: var(--ink);
+      box-shadow: 0 3px 0 rgba(43,33,24,0.1);
+    }
+    .social-row {
+      display: flex;
+      justify-content: center;
+      gap: 18px;
+      margin-bottom: 60px;
+    }
+    .social-icon {
+      width: 54px;
+      height: 54px;
+      border-radius: 50%;
+      background: white;
+      border: 3px solid var(--ink);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: transform 0.15s ease, background 0.15s ease;
+    }
+    .social-icon:hover {
+      background: var(--yellow);
+      transform: translateY(-4px) rotate(-6deg);
+    }
+    .social-icon svg { width: 24px; height: 24px; }
+
+    footer {
+      border-top: 3px solid var(--ink);
+      padding: 26px 0;
+      text-align: center;
+      font-size: 0.85rem;
+      color: #8a8172;
+      font-weight: 700;
+    }
+
+    @media (max-width: 880px) {
+      .hero-inner { grid-template-columns: 1fr; }
+      .hero-art { height: 260px; order: -1; }
+      .about-inner { grid-template-columns: 1fr; }
+      .about-art { height: 220px; order: -1; }
+      .shop-grid { grid-template-columns: repeat(2, 1fr); }
+      .nav-links { display: none; }
+    }
+    @media (max-width: 560px) {
+      .shop-grid { grid-template-columns: 1fr; }
+      .wrap { padding: 0 20px; }
+      .hero { padding: 60px 20px 40px; }
+      .about-stats { justify-content: center; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      * { transition: none !important; animation: none !important; scroll-behavior: auto !important; }
+    }
+
+    a:focus-visible, button:focus-visible {
+      outline: 3px solid var(--turquoise);
+      outline-offset: 3px;
+      border-radius: 6px;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="nav">
+    <a href="#top" class="logo">
+      <svg class="logo-mark" viewBox="0 0 40 40" fill="none">
+        <circle cx="20" cy="20" r="18" fill="var(--pink)" stroke="var(--ink)" stroke-width="3"/>
+        <path d="M20 10 C24 14, 24 18, 20 22 C16 18, 16 14, 20 10 Z" fill="var(--yellow)"/>
+        <circle cx="14" cy="24" r="3" fill="var(--turquoise)"/>
+        <circle cx="26" cy="26" r="2.4" fill="white"/>
+      </svg>
+      Beauty Factory Preuss
+    </a>
+    <nav class="nav-links">
+      <a href="#shop">Shop</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <a href="#contact" class="nav-cta">Get in touch</a>
+  </div>
+</header>
+
+<section class="hero" id="top">
+  <div class="blob" style="width:340px;height:340px;background:var(--yellow);opacity:0.55;top:-120px;right:-80px;"></div>
+  <div class="blob" style="width:220px;height:220px;background:var(--turquoise);opacity:0.35;bottom:-60px;left:-60px;"></div>
+
+  <div class="hero-inner">
+    <div>
+      <span class="eyebrow">✦ Handmade in small batches</span>
+      <h1>Soap that makes<br>your skin (and your<br>day) a little <span class="accent">brighter.</span></h1>
+      <p>Beauty Factory Preuss makes colourful, hand-poured soaps with real ingredients and zero boring bars. New scents dropping soon!</p>
+      <div class="hero-ctas">
+        <a href="#shop" class="btn-primary">Browse the shop</a>
+        <a href="#about" class="btn-secondary">Our story</a>
+      </div>
+    </div>
+
+    <div class="hero-art">
+      <svg viewBox="0 0 100 100" width="230" height="230" style="top:10px; left:40px;">
+        <circle cx="50" cy="50" r="46" fill="var(--pink-soft)" stroke="var(--ink)" stroke-width="3"/>
+        <path d="M50 8 A42 42 0 0 1 50 92" fill="none" stroke="var(--pink)" stroke-width="10"/>
+        <path d="M50 20 A30 30 0 0 1 50 80" fill="none" stroke="var(--yellow)" stroke-width="9"/>
+        <path d="M50 32 A18 18 0 0 1 50 68" fill="none" stroke="var(--turquoise)" stroke-width="8"/>
+        <circle cx="50" cy="50" r="6" fill="var(--purple)"/>
+      </svg>
+      <svg viewBox="0 0 100 100" width="140" height="140" style="bottom:10px; right:10px;">
+        <circle cx="50" cy="50" r="46" fill="var(--purple-soft)" stroke="var(--ink)" stroke-width="3"/>
+        <path d="M8 50 A42 42 0 0 0 92 50" fill="none" stroke="var(--purple)" stroke-width="9"/>
+        <path d="M20 50 A30 30 0 0 0 80 50" fill="none" stroke="var(--pink)" stroke-width="8"/>
+        <circle cx="50" cy="50" r="7" fill="var(--yellow)"/>
+      </svg>
+      <svg viewBox="0 0 60 60" width="70" height="70" style="top:0; right:110px;">
+        <circle cx="30" cy="30" r="27" fill="var(--yellow)" stroke="var(--ink)" stroke-width="3"/>
+        <circle cx="30" cy="30" r="12" fill="white" opacity="0.6"/>
+      </svg>
+      <svg viewBox="0 0 40 40" width="46" height="46" style="bottom:60px; left:0;">
+        <circle cx="20" cy="20" r="17" fill="var(--turquoise)" stroke="var(--ink)" stroke-width="3"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<section class="shop" id="shop">
+  <div class="wrap">
+    <div class="section-head">
+      <span class="eyebrow" style="background:var(--turquoise); color:white;">✦ The lineup</span>
+      <h2>Pick your lather</h2>
+      <p>Real products and photos are on the way - here's a preview of how the shop will look. Each swirl badge stands in for a future product photo.</p>
+    </div>
+
+    <div class="shop-grid">
+      <div class="card">
+        <div class="swirl-wrap">
+          <svg viewBox="0 0 100 100" width="110" height="110" class="swirl-badge">
+            <circle cx="50" cy="50" r="46" fill="var(--pink-soft)"/>
+            <path d="M50 8 A42 42 0 0 1 50 92" fill="none" stroke="var(--pink)" stroke-width="9"/>
+            <path d="M50 20 A30 30 0 0 1 50 80" fill="none" stroke="var(--yellow)" stroke-width="8"/>
+            <circle cx="50" cy="50" r="6" fill="var(--purple)"/>
+          </svg>
+        </div>
+        <h3>Placeholder Bar No.1</h3>
+        <span class="scent-tag">scent tbd</span>
+        <div class="price">$0.00</div>
+        <button class="btn-mini">Notify me</button>
+      </div>
+
+      <div class="card">
+        <div class="swirl-wrap">
+          <svg viewBox="0 0 100 100" width="110" height="110" class="swirl-badge">
+            <circle cx="50" cy="50" r="46" fill="var(--purple-soft)"/>
+            <path d="M8 50 A42 42 0 0 0 92 50" fill="none" stroke="var(--purple)" stroke-width="9"/>
+            <path d="M20 50 A30 30 0 0 0 80 50" fill="none" stroke="var(--turquoise)" stroke-width="8"/>
+            <circle cx="50" cy="50" r="6" fill="var(--yellow)"/>
+          </svg>
+        </div>
+        <h3>Placeholder Bar No.2</h3>
+        <span class="scent-tag">scent tbd</span>
+        <div class="price">$0.00</div>
+        <button class="btn-mini">Notify me</button>
+      </div>
+
+      <div class="card">
+        <div class="swirl-wrap">
+          <svg viewBox="0 0 100 100" width="110" height="110" class="swirl-badge">
+            <circle cx="50" cy="50" r="46" fill="#FFF3C4"/>
+            <path d="M50 8 A42 42 0 0 0 8 50" fill="none" stroke="var(--yellow)" stroke-width="9"/>
+            <path d="M50 20 A30 30 0 0 0 20 50" fill="none" stroke="var(--pink)" stroke-width="8"/>
+            <circle cx="50" cy="50" r="6" fill="var(--turquoise)"/>
+          </svg>
+        </div>
+        <h3>Placeholder Bar No.3</h3>
+        <span class="scent-tag">scent tbd</span>
+        <div class="price">$0.00</div>
+        <button class="btn-mini">Notify me</button>
+      </div>
+
+      <div class="card">
+        <div class="swirl-wrap">
+          <svg viewBox="0 0 100 100" width="110" height="110" class="swirl-badge">
+            <circle cx="50" cy="50" r="46" fill="#D9F5F0"/>
+            <path d="M50 92 A42 42 0 0 0 92 50" fill="none" stroke="var(--turquoise)" stroke-width="9"/>
+            <path d="M50 80 A30 30 0 0 0 80 50" fill="none" stroke="var(--purple)" stroke-width="8"/>
+            <circle cx="50" cy="50" r="6" fill="var(--pink)"/>
+          </svg>
+        </div>
+        <h3>Placeholder Bar No.4</h3>
+        <span class="scent-tag">scent tbd</span>
+        <div class="price">$0.00</div>
+        <button class="btn-mini">Notify me</button>
+      </div>
+
+      <div class="card">
+        <div class="swirl-wrap">
+          <svg viewBox="0 0 100 100" width="110" height="110" class="swirl-badge">
+            <circle cx="50" cy="50" r="46" fill="#FFE1EE"/>
+            <path d="M92 50 A42 42 0 0 0 50 8" fill="none" stroke="var(--pink)" stroke-width="9"/>
+            <path d="M80 50 A30 30 0 0 0 50 20" fill="none" stroke="var(--yellow)" stroke-width="8"/>
+            <circle cx="50" cy="50" r="6" fill="var(--turquoise)"/>
+          </svg>
+        </div>
+        <h3>Placeholder Bar No.5</h3>
+        <span class="scent-tag">scent tbd</span>
+        <div class="price">$0.00</div>
+        <button class="btn-mini">Notify me</button>
+      </div>
+
+      <div class="card">
+        <div class="swirl-wrap">
+          <svg viewBox="0 0 100 100" width="110" height="110" class="swirl-badge">
+            <circle cx="50" cy="50" r="46" fill="#EAE0FB"/>
+            <path d="M8 50 A42 42 0 0 1 50 8" fill="none" stroke="var(--purple)" stroke-width="9"/>
+            <path d="M20 50 A30 30 0 0 1 50 20" fill="none" stroke="var(--turquoise)" stroke-width="8"/>
+            <circle cx="50" cy="50" r="6" fill="var(--pink)"/>
+          </svg>
+        </div>
+        <h3>Placeholder Bar No.6</h3>
+        <span class="scent-tag">scent tbd</span>
+        <div class="price">$0.00</div>
+        <button class="btn-mini">Notify me</button>
+      </div>
+    </div>
+
+    <p class="shop-note">Once real product names, scents, prices and photos are ready, each card here swaps in cleanly - just say the word.</p>
+  </div>
+</section>
+
+<section class="about" id="about">
+  <div class="wrap about-inner">
+    <div class="about-art">
+      <svg viewBox="0 0 200 200" width="280" height="280" style="left:10%;">
+        <circle cx="100" cy="100" r="90" fill="white" stroke="var(--ink)" stroke-width="3"/>
+        <path d="M100 20 A80 80 0 0 1 100 180" fill="none" stroke="var(--pink)" stroke-width="16"/>
+        <path d="M100 44 A56 56 0 0 1 100 156" fill="none" stroke="var(--yellow)" stroke-width="14"/>
+        <path d="M100 66 A34 34 0 0 1 100 134" fill="none" stroke="var(--turquoise)" stroke-width="12"/>
+        <circle cx="100" cy="100" r="10" fill="var(--purple)"/>
+      </svg>
+    </div>
+    <div>
+      <span class="eyebrow" style="background:var(--pink); color:white;">✦ Who's behind it</span>
+      <h2>Made by hand, with a lot of colour and a little chaos.</h2>
+      <p>Beauty Factory Preuss started as a kitchen-counter experiment and turned into something people actually wanted more of. Every bar is mixed, poured, and cut in small batches - no two swirls come out quite the same.</p>
+      <p>The full story, ingredients list, and product details are coming soon - this page will grow along with the business.</p>
+      <div class="about-stats">
+        <div class="stat"><b>100%</b><span>Handmade</span></div>
+        <div class="stat"><b>Small</b><span>Batch sizes</span></div>
+        <div class="stat"><b>♥</b><span>Made with love</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="contact" id="contact">
+  <div class="wrap">
+    <span class="eyebrow" style="background:var(--turquoise); color:white;">✦ Say hi</span>
+    <h2>Let's get you some soap.</h2>
+    <p>Orders and questions currently go through email and social media - pick whichever's easiest.</p>
+    <div class="contact-actions">
+      <a href="mailto:beautyfactorypreuss@gmail.com" class="btn-primary">Email us</a>
+      <div class="email-display">beautyfactorypreuss@gmail.com</div>
+    </div>
+    <div class="social-row">
+      <a href="https://instagram.com/vexify_______" class="social-icon" aria-label="Instagram" target="_blank" rel="noopener noreferrer">
+        <svg viewBox="0 0 24 24" fill="none" stroke="var(--ink)" stroke-width="2">
+          <rect x="3" y="3" width="18" height="18" rx="5"/>
+          <circle cx="12" cy="12" r="4"/>
+          <circle cx="17.5" cy="6.5" r="1" fill="var(--ink)"/>
+        </svg>
+      </a>
+      <a href="https://facebook.com/Aron Preuss" class="social-icon" aria-label="Facebook" target="_blank" rel="noopener noreferrer">
+        <svg viewBox="0 0 24 24" fill="none" stroke="var(--ink)" stroke-width="2">
+          <path d="M15 8h-2a2 2 0 0 0-2 2v10M8 13h5"/>
+          <circle cx="12" cy="12" r="9"/>
+        </svg>
+      </a>
+      <a href="https://tiktok.com/@igl_vexify" class="social-icon" aria-label="TikTok" target="_blank" rel="noopener noreferrer">
+        <svg viewBox="0 0 24 24" fill="none" stroke="var(--ink)" stroke-width="2">
+          <path d="M14 4v9.5a3.5 3.5 0 1 1-3-3.46"/>
+          <path d="M14 4c0 2.5 2 4.5 4 4.5"/>
+        </svg>
+      </a>
+      <a href="mailto:verify.exe101@gmail.com" class="social-icon" aria-label="Email">
+        <svg viewBox="0 0 24 24" fill="none" stroke="var(--ink)" stroke-width="2">
+          <rect x="3" y="5" width="18" height="14" rx="3"/>
+          <path d="M3 7l9 6 9-6"/>
+        </svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">© 2026 Beauty Factory Preuss. Handmade with bubbles.</div>
+</footer>
+
+</body>
+</html>
